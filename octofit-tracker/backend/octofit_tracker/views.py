@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -26,11 +27,12 @@ class WorkoutViewSet(viewsets.ModelViewSet):
 
 @api_view(['GET'])
 def api_root(request, format=None):
-    base_url = 'https://solid-dollop-qgvrx6rjwx4crgq-7999.app.github.dev/'
+    base_url = 'https://solid-dollop-qgvrx6rjwx4crgq-8000.app.github.dev'
+    api_suffix = settings.CODESPACE_API_SUFFIX
     return Response({
-        'users': base_url + 'api/users/',
-        'teams': base_url + 'api/teams/',
-        'activities': base_url + 'api/activities/',
-        'leaderboard': base_url + 'api/leaderboard/',
-        'workouts': base_url + 'api/workouts/'
+        'users': base_url + api_suffix + 'users/',
+        'teams': base_url + api_suffix + 'teams/',
+        'activities': base_url + api_suffix + 'activities/',
+        'leaderboard': base_url + api_suffix + 'leaderboard/',
+        'workouts': base_url + api_suffix + 'workouts/'
     })
