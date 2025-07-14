@@ -19,7 +19,8 @@ class Command(BaseCommand):
             User(_id=ObjectId(), username='john_doe', email='john@example.com', password='password123'),
             User(_id=ObjectId(), username='jane_doe', email='jane@example.com', password='password123'),
         ]
-        User.objects.bulk_create(users)
+        for user in users:
+            user.save()
 
         # Create teams
         team = Team(_id=ObjectId(), name='Team Alpha')
@@ -31,20 +32,23 @@ class Command(BaseCommand):
             Activity(_id=ObjectId(), user=users[0], activity_type='Running', duration=timedelta(minutes=30)),
             Activity(_id=ObjectId(), user=users[1], activity_type='Cycling', duration=timedelta(minutes=45)),
         ]
-        Activity.objects.bulk_create(activities)
+        for activity in activities:
+            activity.save()
 
         # Create leaderboard entries
         leaderboard_entries = [
             Leaderboard(_id=ObjectId(), user=users[0], score=100),
             Leaderboard(_id=ObjectId(), user=users[1], score=150),
         ]
-        Leaderboard.objects.bulk_create(leaderboard_entries)
+        for entry in leaderboard_entries:
+            entry.save()
 
         # Create workouts
         workouts = [
             Workout(_id=ObjectId(), name='Morning Run', description='A quick morning run to start the day'),
             Workout(_id=ObjectId(), name='Evening Cycle', description='A relaxing evening cycling session'),
         ]
-        Workout.objects.bulk_create(workouts)
+        for workout in workouts:
+            workout.save()
 
         self.stdout.write(self.style.SUCCESS('Successfully populated the database with test data.'))
